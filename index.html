@@ -12,10 +12,10 @@
     margin: 0;
     padding: 0;
   }
-  #pano {
-    position: absolute;
-    height: 100%;        
-    width: 100%;
+  #map, #pano {
+    float: left;
+    height: 100%;
+    width: 45%;
   }
 </style>
 
@@ -23,12 +23,21 @@
 
 var lat_param = gup('lat');
 var long_param = gup('long');
+/*
 var width_param = gup('width');
 var height_param = gup('height');
+*/
 var result = "null";
   
 function initialize() {
-   var queryloc = new google.maps.LatLng(lat_param,long_param);
+  
+  var queryloc = new google.maps.LatLng(lat_param,long_param);
+   
+  var map = new google.maps.Map(document.getElementById('map'), {
+    center: queryloc,
+    zoom: 15
+  });
+  
    var panoDiv = document.getElementById("pano");
    /*
    if ((width_param == '') || (height_param == ''))
@@ -54,6 +63,7 @@ function initialize() {
    */
    var panoClient = new google.maps.StreetViewPanorama(panoDiv);
    panoClient.setPosition(queryloc);
+   map.setStreetView(panorama);
 }
 
 function gup(name)
@@ -72,7 +82,8 @@ function gup(name)
 </head>
 
 <body onload="initialize();">
-<div name="pano" id="pano"></div>
+  <div id="map"></div>
+  <div id="pano"></div>
 </body>
 
 </html>
