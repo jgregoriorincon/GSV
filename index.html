@@ -25,7 +25,8 @@
       var result = "null";
 
       function initialize() {
-        var ubicacion = {lat: lat_param, lng: long_param};
+        var ubicacion = new google.maps.LatLng(lat_param,long_param);
+        //var ubicacion = {lat: lat_param, lng: long_param};
         var map = new google.maps.Map(document.getElementById('map'), {
           center: ubicacion,
           zoom: 14
