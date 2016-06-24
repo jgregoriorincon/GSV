@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Street View side-by-side</title>
+    <title>UAECD - Google StreetView</title>
     <style>
       html, body {
         height: 100%;
@@ -20,24 +20,38 @@
     <div id="map"></div>
     <div id="pano"></div>
     <script>
+      var lat_param = gup('lat');
+      var long_param = gup('long');
+      var result = "null";
 
-function initialize() {
-  var fenway = {lat: 42.345573, lng: -71.098326};
-  var map = new google.maps.Map(document.getElementById('map'), {
-    center: fenway,
-    zoom: 14
-  });
-  var panorama = new google.maps.StreetViewPanorama(
-      document.getElementById('pano'), {
-        position: fenway,
-        pov: {
-          heading: 34,
-          pitch: 10
-        }
-      });
-  map.setStreetView(panorama);
-}
-
+      function initialize() {
+        var ubicacion = {lat: lat_param, lng: long_param};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          center: ubicacion,
+          zoom: 14
+        });
+        var panorama = new google.maps.StreetViewPanorama(
+            document.getElementById('pano'), {
+              position: ubicacion,
+              pov: {
+                heading: 34,
+                pitch: 10
+              }
+            });
+        map.setStreetView(panorama);
+      }
+      
+      function gup(name)
+      {
+        name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+        var regexS = "[\\?&]"+name+"=([^&#]*)";
+        var regex = new RegExp( regexS );
+        var results = regex.exec( window.location.href );
+        if( results == null )
+          return "";
+        else
+          return results[1];
+      }
     </script>
     <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8M2PGMpZJNBuH5xa_5tPs-n4RoNDiDH0&signed_in=true&callback=initialize">
