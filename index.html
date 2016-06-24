@@ -6,6 +6,19 @@
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8M2PGMpZJNBuH5xa_5tPs-n4RoNDiDH0&signed_in=true&callback=initialize">
 </script>
 
+<style>
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+  }
+  #pano {
+    position: absolute;
+    height: 100%;        
+    width: 100%;
+  }
+</style>
+
 <script type="text/javascript">
 
 var lat_param = gup('lat');
@@ -17,6 +30,7 @@ var result = "null";
 function initialize() {
    var queryloc = new google.maps.LatLng(lat_param,long_param);
    var panoDiv = document.getElementById("pano");
+   /*
    if ((width_param == '') || (height_param == ''))
    {
        panoDiv.style.width = '500px';
@@ -37,6 +51,7 @@ function initialize() {
        panoDiv.style.width = width_param + 'px';
        panoDiv.style.height = height_param + 'px';
    }
+   */
    var panoClient = new google.maps.StreetViewPanorama(panoDiv);
    panoClient.setPosition(queryloc);
 }
