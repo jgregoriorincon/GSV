@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:v="urn:schemas-microsoft-com:vml">
+<head>
+<title>ArcGIS Explorer StreetViewer Task</title>
+<script async defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8M2PGMpZJNBuH5xa_5tPs-n4RoNDiDH0&signed_in=true&callback=initialize">
+</script>
+
+<script type="text/javascript">
+
+var lat_param = gup('lat');
+var long_param = gup('long');
+var width_param = gup('width');
+var height_param = gup('height');
+var result = "null";
+  
+function initialize() {
+   var queryloc = new google.maps.LatLng(lat_param,long_param);
+   var panoDiv = document.getElementById("pano");
+   if ((width_param == '') || (height_param == ''))
+   {
+       panoDiv.style.width = '500px';
+       panoDiv.style.height = '300px';
+   }
+   else
+   {
+       if (parseInt(width_param) < 0)
+       {
+          width_param = '0';
+       }
+       
+       if (parseInt(height_param) < 0)
+       {
+          height_param = '0';
+       }
+
+       panoDiv.style.width = width_param + 'px';
+       panoDiv.style.height = height_param + 'px';
+   }
+   var panoClient = new google.maps.StreetViewPanorama(panoDiv);
+   panoClient.setPosition(queryloc);
+}
+
+function gup(name)
+{
+  name = name.replace(/[\[]/,"\\\[").replace(/[\]]/,"\\\]");
+  var regexS = "[\\?&]"+name+"=([^&#]*)";
+  var regex = new RegExp( regexS );
+  var results = regex.exec( window.location.href );
+  if( results == null )
+    return "";
+  else
+    return results[1];
+}
+
+</script>
+</head>
+
+<body onload="initialize();">
+<div name="pano" id="pano"></div>
+</body>
+
+</html>
